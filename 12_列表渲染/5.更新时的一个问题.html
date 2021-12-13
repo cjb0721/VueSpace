@@ -43,7 +43,11 @@
                 // this.persons[0].age = 40        // 奏效
                 // this.persons[0].sex = "男"      // 奏效
 
-                this.persons[0] = {id: "001", name: "马化腾", age: 40, sex: "男"}
+                // this.persons[0] = {id: "001", name: "马化腾", age: 40, sex: "男"}  // 不奏效
+
+                // this.$set(this.persons,0,{id: "001", name: "马化腾", age: 40, sex: "男"}) // 奏效
+                // Vue.set(this.persons,0,{id: "001", name: "马化腾", age: 40, sex: "男"}) // 奏效
+                this.persons.splice(0,1,{id: "001", name: "马化腾", age: 40, sex: "男"}) // 奏效
             }
         },
     })

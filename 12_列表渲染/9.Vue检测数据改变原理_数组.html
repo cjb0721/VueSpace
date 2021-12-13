@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="../js/vue.js"></script>
+
+</head>
+<body>
+    <div id="root">
+        <h2>学校信息</h2>
+        <h3>学校名称：{{school.name}}</h3>
+        <h3>学校地址：{{school.address}}</h3>
+        <button @click="addLeader">点我</button>
+        <h3 v-show="school.leader">学校校长：{{school.leader}}</h3>
+        <hr>
+        <h2>学生信息</h2>
+        <h3>姓名：{{student.name}}</h3>
+        <button @click="addSex">添加一个性别属性，默认值是男</button>
+        <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+        <h3>年龄：真实{{student.age.real}}, 对外{{student.age.out}}</h3>
+        <h3>爱好：</h3>
+        <button @click="addTop">数组头部添加</button>
+        <button @click="addEnd">数组尾部添加</button>
+        <button @click="delTop">数组头部删除</button>
+        <button @click="delEnd">数组尾部删除</button>
+        <ul>
+            <li v-for="(h, index) in student.hobby" :key="index">
+                {{h}}
+                <button @click="delHobby(index)">删除</button>
+                <button @click="replaceHobby(index)">替换</button>
+            </li>
+            
+        </ul>
+        <h3>朋友：</h3>
+        <ul>
+            <li v-for="(f, index) in student.friends" :key="index">{{f.name}}--{{f.age}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el: "#root",
+        data: {
+            school: {
+                name: "清华",
+                address: "北京"
+            },
+            student: {
+                name: "Tom",
+                age: {
+                    real: 40,
+                    out: 20
+                },
+                hobby: ["吃饭", "睡觉", "学习"],
+                friends: [
+                    {name: "Jim", age: 38},
+                    {name: "Bob", age: 39},
+                ]
+            }
+        },
+        methods: {
+            addSex(){
+                // Vue.set(this.student, "sex", "男")
+                this.$set(this.student, "sex", "男")
+            },
+            addLeader(){
+                Vue.set(this.school, "leader", "一个帅气的老师")
+                // this.$set(this.student, "sex", "男")
+            },
+
+            addTop(){
+                this.student.hobby.unshift("打球")
+            },
+            addEnd(){
+                this.student.hobby.push("打游戏")
+            },
+            delTop(){
+                this.student.hobby.shift()
+            },
+            delEnd(){
+                this.student.hobby.pop()
+            },
+            delHobby(index){
+                this.student.hobby.splice(index,1)
+            },
+            replaceHobby(index){
+                // this.student.hobby.splice(index,1,"打豆豆")
+                // this.$set(this.student.hobby,index,"打豆豆")
+                Vue.set(this.student.hobby,index,"打豆豆")
+            },
+
+        },
+    })
+</script>
+</html>
